@@ -7,11 +7,18 @@ import Header from "./components/Header";
 import { db } from "./data/db";
 
 function App() {
-  const [data, setData] = useState(db);
-  const [cart, setCart] = useState([]);
+
+  const initialCart = () => {
+    const localStorageCart = localStorage.getItem('cart')
+    return localStorageCart ? JSON.parse(localStorageCart) : []
+  }
+
+  const [data] = useState(db);
+  const [cart, setCart] = useState(initialCart);
 
   // const MAX_ITEM = 0  // ACA IRIA LA CANTIDAD QUE TENGA EN STOCK
   const MIN_ITEM = 1
+
 
   useEffect( () => {
     localStorage.setItem('cart', JSON.stringify(cart))
